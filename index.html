@@ -1,0 +1,72 @@
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<div id="toolbar">
+	<button id="yellow" onclick="changeColor('yellow')">Yellow</button>
+	<button id="green" onclick="changeColor('green')">Green</button>
+	<button id="hotpink" onclick="changeColor('hotpink')">Hot Pink</button>
+	<button id="bold" onclick="bold()">Bold</button>
+	<button id="mini" onclick="mini()">Dots..</button>
+	<button id="bonus" onclick="bonus()">BONUS!!</button>
+	<button id="clear" onclick="reset()">Reset</button>
+
+	</div>
+
+<canvas id="myCavas" width="1270" height="574"></canvas>                                            
+<script>
+	var canvas=document.getElementById("myCavas");
+	canvas.width=window.innerWidth;
+	canvas.height=window.innerHeight;
+    var theCanvas=canvas.getContext("2d");    
+    var brush=20;
+    theCanvas.fillStyle="red";
+
+	function drawSquare(x,y){
+		theCanvas.fillRect(x,y, brush, brush);
+	}
+	function changeColor(color){
+		theCanvas.fillStyle=color;
+	}
+	function bold(){
+		brush=40;
+	}
+
+	function mini(){
+         brush=5;
+	}
+
+	function bonus(){
+		var myGradient=theCanvas.createLinearGradient(0,0,400,300);
+			myGradient.addColorStop(0,"black");
+			myGradient.addColorStop(0.4,"pink");
+			myGradient.addColorStop(0.7,"lightblue");
+			myGradient.addColorStop(1,"orange");
+			theCanvas.fillStyle=myGradient;
+			theCanvas.fillRect(x, y, 30,10);
+	}
+
+	
+	function reset(){
+		theCanvas.clearRect(0,0, canvas.width, canvas.height);
+	}
+
+	document.onmousemove=function(e){
+		drawSquare(e.clientX, e.clientY);
+	}
+
+	document.ontouchmove=function(e){
+		e.preventDefault();
+		for (var n=0; n<e.touches.length; n++){
+			drawSquare(e.touches[n].pageX, e.touches[n].pageY);
+		}
+	}
+
+
+</script>
+
+</body>
+</html>
